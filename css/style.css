@@ -5,6 +5,9 @@
 * License: https://creativecommons.org/licenses/by/3.0/
 */
 body {
+  min-height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
   position: fixed;
   font-family: "Work Sans", sans-serif;
   line-height: 1.6;
