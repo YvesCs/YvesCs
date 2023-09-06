@@ -5,6 +5,7 @@
 * License: https://creativecommons.org/licenses/by/3.0/
 */
 body {
+  position: fixed;
   font-family: "Work Sans", sans-serif;
   line-height: 1.6;
   background: #ffffff;
@@ -14,7 +15,6 @@ body {
   letter-spacing: normal; }
   body:before {
     content: "";
-    position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
