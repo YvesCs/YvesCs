@@ -17,7 +17,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99;
+    z-index: 999;
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.2);
@@ -362,13 +362,13 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1); }
     .site-nav.scrolled.awake {
       margin-top: 0px;
-      -webkit-transition: .3s all ease-out;
-      -o-transition: .3s all ease-out;
-      transition: .3s all ease-out; }
+      -webkit-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+      -o-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+      transition: .3s all cubic-bezier(0.19,1,0.22,1); }
     .site-nav.scrolled.sleep {
-      -webkit-transition: .3s all ease-out;
-      -o-transition: .3s all ease-out;
-      transition: .3s all ease-out; }
+      -webkit-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+      -o-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+      transition: .3s all cubic-bezier(0.19,1,0.22,1); }
     .site-nav.scrolled .site-navigation .site-menu li a {
       color: #000000; }
       .site-nav.scrolled .site-navigation .site-menu li a.active {
@@ -416,9 +416,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   -webkit-transform: translateX(100%);
   -ms-transform: translateX(100%);
   transform: translateX(100%);
-  -webkit-transition: 0.8s all cubic-bezier(0.23, 1, 0.32, 1);
-  -o-transition: 0.8s all cubic-bezier(0.23, 1, 0.32, 1);
-  transition: 0.8s all cubic-bezier(0.23, 1, 0.32, 1); }
+  -webkit-transition: 0.8s all cubic-bezier(0.19,1,0.22,1);
+  -o-transition: 0.8s all cubic-bezier(0.19,1,0.22,1);
+  transition: 0.8s all cubic-bezier(0.19,1,0.22,1); }
   .offcanvas-menu .site-mobile-menu {
     -webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
     box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
@@ -440,9 +440,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         padding-right: 0px;
         line-height: 1;
         cursor: pointer;
-        -webkit-transition: .3s all ease;
-        -o-transition: .3s all ease;
-        transition: .3s all ease; }
+        -webkit-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+        -o-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+        transition: .3s all cubic-bezier(0.19,1,0.22,1); }
     .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-logo {
       float: left;
       margin-top: 10px;
@@ -500,9 +500,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         -webkit-transform: translate(-50%, -50%) rotate(-180deg);
         -ms-transform: translate(-50%, -50%) rotate(-180deg);
         transform: translate(-50%, -50%) rotate(-180deg);
-        -webkit-transition: .3s all ease;
-        -o-transition: .3s all ease;
-        transition: .3s all ease; }
+        -webkit-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+        -o-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+        transition: .3s all cubic-bezier(0.19,1,0.22,1); }
       .site-mobile-menu .site-nav-wrap .arrow-collapse.collapsed:before {
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -538,9 +538,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   z-index: 100;
   width: 100%; }
   .sticky-wrapper .site-navbar {
-    -webkit-transition: .3s all ease;
-    -o-transition: .3s all ease;
-    transition: .3s all ease; }
+    -webkit-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+    -o-transition: .3s all cubic-bezier(0.19,1,0.22,1);
+    transition: .3s all cubic-bezier(0.19,1,0.22,1); }
   .sticky-wrapper .site-navbar .site-menu-toggle {
     color: #000000; }
   .sticky-wrapper .site-navbar .site-logo a {
@@ -549,9 +549,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     color: #000000 !important; }
   .sticky-wrapper.is-sticky .burger:before, .sticky-wrapper.is-sticky .burger span, .sticky-wrapper.is-sticky .burger:after {
     background: #000000;
-    -webkit-transition: .0s all ease;
-    -o-transition: .0s all ease;
-    transition: .0s all ease; }
+    -webkit-transition: .0s all cubic-bezier(0.19,1,0.22,1);
+    -o-transition: .0s all cubic-bezier(0.19,1,0.22,1);
+    transition: .0s all cubic-bezier(0.19,1,0.22,1); }
   .sticky-wrapper.is-sticky .site-navbar {
     background: #000000;
     border-bottom: 1px solid transparent;
