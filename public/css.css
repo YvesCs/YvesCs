@@ -1,0 +1,332 @@
+:root {
+    --text: #ffffff;
+    --link: #dda0dd;
+    --heightlight: aqua;
+    --bgcolor: #000000;
+}
+html, body {
+    background-color: var(--bgcolor);
+    font-family: 'Mitr', sans-serif;
+}
+.heightlight {
+    display: inline;
+    color: var(--link);
+}
+.heightlight2 {
+    display: inline;
+    color: var(--heightlight);
+}
+
+
+
+/*========== HOME ==========*/
+.home {
+    z-index: 1;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 60% 40%;
+    box-sizing: border-box;
+    line-height: 20px;
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+.home-avatar {
+    position: absolute;
+    text-align: center;
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 100px 75px 100px 100px;
+    z-index: 0;
+}
+.home-avatar-img{
+    width: 250px;
+}
+.home .contact {
+    z-index: 2;
+}
+
+
+/*TITLE*/
+p {
+    font-size: 15px;
+    color: var(--text);
+}
+h1 {
+    font-size: 3em;
+    font-weight: 600;
+    color: var(--text);
+}
+h4 {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--text);
+}
+.home-content h1 span {
+    position: relative;
+    color: var(--link);
+}
+.home-content h1 span::before {
+    content: "";
+    right: -8px;
+    top: 50%;
+    position: absolute;
+    height: 30px;
+    width: 2px;
+    background-color: var(--link);
+    transform: translateY(-45%);
+    animation: blink 0.7s infinite;
+}
+.home-content h1 span.stop-blinking::before {
+    animation: none;
+}
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/*CONTACT*/
+.contact button {
+    margin: 0 5px 0 5px;
+    cursor: pointer;
+    position: relative;
+    padding: 0px 0px;
+    font-size: 15px;
+    color: var(--text);
+    border: 2px solid var(--link);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    z-index: 1;
+}
+.contact button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: var(--link);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+.contact button:hover::before {
+    scale: 3;
+}
+.contact button:hover {
+    color: var(--bgcolor);
+    scale: 1.1;
+    box-shadow: 0 0px 20px var(--link);
+}
+.contact button:active {
+    scale: 1;
+}
+
+
+
+/*========== SKILL ==========*/
+.skill {
+    display: block;
+    width: auto;
+    box-sizing: border-box;
+    margin: 75px 10% 0% 10%;
+    line-height: 20px;
+    margin-bottom: 100px;
+}
+.skill .flexbox {
+    display: flex;
+    box-sizing: border-box;
+    text-decoration: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: left;
+    overflow-wrap: break-word;
+}
+.skill .item {
+    display: block;
+    box-sizing: border-box;
+    max-width: 225px;
+    margin: 2rem;
+}
+.skill .content  {
+    border-radius: 20px;
+    padding: 20px 30px 15px 30px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+
+
+/*========== REWARD ==========*/
+.reward {
+    display: block;
+    width: auto;
+    box-sizing: border-box;
+    margin: 75px 10% 0% 10%;
+    line-height: 20px;
+    margin-bottom: 100px;
+}
+.reward .flexbox { 
+    display: flex;
+    box-sizing: border-box;
+    text-decoration: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow-wrap: break-word;
+    top: 20px;
+}
+.reward .item {
+    display: block;
+    box-sizing: border-box;
+    max-width: 225px; 
+    margin: 15px 0px 15px 0px;
+    margin: 2rem;
+}
+.reward .content {
+    position: relative;
+}
+.img-re {
+    display: block;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    filter: none;
+}
+.item-black {
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: 0.6s;
+    background-color: rgba(0,0,0, 0.6);
+    backdrop-filter: blur(5px);
+    line-height: 25px;
+    opacity: 0;
+}
+.item-black:hover {
+    opacity: 1;
+}
+
+
+
+/*========== COPYRIGHT ==========*/
+.copyright{
+    text-align: center;
+    opacity: 30%;
+    margin-bottom: 100px;
+}
+
+
+
+
+/*==================== MEDIA ====================*/
+
+
+
+
+@media screen and (width <=768px) {
+    .home {
+        display: flex;
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .home-avatar-img {
+        width: 150px;
+        margin-top: -100px;
+        margin-bottom: -75px;
+        margin-left: -20px;
+    }
+    .contact button {
+        margin-top: 10px;
+    } 
+    .home-content span::before {
+        height: 25px;
+    }
+    .dots, .dots2 {
+        opacity: calc(0%);
+    }
+    p {
+        font-size: 10px;
+    }
+    h1 {
+        font-size:1.4em!important;
+    }
+    h4 {
+        font-size:0.6em!important;
+    }
+}
+@media screen and (768px < width < 1035px) {
+    .home-avatar-img {
+        width: 250px;
+        margin: -50px -50px -50px 0px;
+    }
+    .contact button {
+        margin-top: 10px;
+    }
+    .home-content span::before {
+        height: 30px;
+    }
+    .dots {
+        opacity: calc(0%);
+    }
+    .dots2 {
+        top: 10%;
+        right: 25%;
+    }
+    p {
+        font-size: 15px;
+    }
+    h1 {
+        font-size:2em!important;
+    }
+    h4 {
+        font-size:1.4em!important;
+    }
+}
+@media screen and (1024px <= width) {
+    .home-content span::before {
+        height: 50px;
+    }
+    .home-avatar {
+        text-align: center;
+        position: static;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin: 100px 0px 100px 100px;
+        z-index: 1;
+    }
+    .dots {
+        scale: 1.1;
+        right: 10%;
+        top: 45%;
+        rotate: 60deg;
+    }
+    .dots2 {
+        right: 25%;
+    }
+    p {
+        font-size: 15px;
+    }
+    h1 {
+        font-size:3em!important;
+    }
+    h4 {
+        font-size:1.4em!important;
+    }
+}
