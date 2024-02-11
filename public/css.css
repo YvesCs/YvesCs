@@ -247,7 +247,7 @@ h4 {
     }
     .home-avatar-img {
         width: 150px;
-        margin-top: -100px;
+        padding-top: -64px;
         margin-bottom: -75px;
         margin-left: -20px;
     }
