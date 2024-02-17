@@ -221,6 +221,9 @@ h4 {
 .item-black:hover {
     opacity: 1;
 }
+.item-black:active {
+    opacity: 1;
+}
 
 
 
@@ -244,10 +247,10 @@ h4 {
         display: flex;
         flex-direction: column-reverse;
         text-align: center;
+        margin-top: auto;
     }
     .home-avatar-img {
         width: 150px;
-        margin-top: -100px;
         margin-bottom: -75px;
         margin-left: -20px;
     }
