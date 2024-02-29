@@ -32,6 +32,7 @@ html, body {
     padding-right: 10%;
     min-height: 100vh;
     overflow: hidden;
+    justify-content: center;
 }
 .home-avatar {
     position: absolute;
@@ -92,11 +93,11 @@ h4 {
 
 /*CONTACT*/
 .contact button {
-    margin: 0 5px 0 5px;
+    margin: 0px 0px 20px 0px;
     cursor: pointer;
     position: relative;
     padding: 0px 0px;
-    font-size: 15px;
+    font-size: 1px;
     color: var(--text);
     border: 2px solid var(--link);
     border-radius: 34px;
@@ -247,7 +248,7 @@ h4 {
         display: flex;
         flex-direction: column-reverse;
         text-align: center;
-        margin-top: auto;
+        margin-top: -50px;
     }
     .home-avatar-img {
         width: 150px;
@@ -255,7 +256,7 @@ h4 {
         margin-left: -20px;
     }
     .contact button {
-        margin-top: 10px;
+        margin-top: auto;
     } 
     .home-content span::before {
         height: 25px;
