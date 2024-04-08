@@ -258,14 +258,17 @@ input, textarea {
     outline: none;
     margin: 6px 0px;
     border-radius: 10px;
+    font-family: 'Mitr', sans-serif;
 }
 form button {
+    font-size: medium;
     width: 50%;
     padding: 6px;
     border: none;
     outline: none;
     margin: 6px 0px;
-    border-radius: 10px;
+    background-color: var(--link);
+    font-family: 'Mitr', sans-serif;
 }
 
 
