@@ -228,6 +228,48 @@ h4 {
 
 
 
+/*========== FORM ==========*/
+.center {
+    display: block;
+    width: auto;
+    box-sizing: border-box;
+    margin: 75px 10% 0% 10%;
+    line-height: 20px;
+    margin-bottom: 100px;
+}
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 10% 0% 10%;
+    margin-bottom: 100px;
+}
+form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 50%;
+}
+input, textarea {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    outline: none;
+    margin: 6px 0px;
+    border-radius: 10px;
+}
+form button {
+    width: 50%;
+    padding: 6px;
+    border: none;
+    outline: none;
+    margin: 6px 0px;
+    border-radius: 10px;
+}
+
+
+
 /*========== COPYRIGHT ==========*/
 .copyright{
     text-align: center;
@@ -272,6 +314,22 @@ h4 {
     }
     h4 {
         font-size:0.6em!important;
+    }
+    .txt {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .txt h1 {
+        font-size:1.8em!important;
+    }
+    .txt h4 {
+        font-size:1em!important;
+    }
+    form {
+        max-width: 100%;
     }
 }
 @media screen and (768px < width < 1035px) {
