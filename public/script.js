@@ -24,7 +24,3 @@ const typeEffect = () => {
     }
 }
 typeEffect();
-
-function email() {
-    console.log('fnjoxigbngoijdfsnjggndnjkbngk');
-}
