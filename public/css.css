@@ -269,6 +269,7 @@ form button {
     margin: 6px 0px;
     background-color: var(--link);
     font-family: 'Mitr', sans-serif;
+    border-radius: 10px;
 }
 
 
