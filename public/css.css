@@ -259,6 +259,8 @@ input, textarea {
     margin: 6px 0px;
     border-radius: 10px;
     font-family: 'Mitr', sans-serif;
+    background-color: #252525;
+    color: #ffffff;
 }
 form button {
     font-size: medium;
