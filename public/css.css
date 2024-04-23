@@ -76,7 +76,7 @@ h4 {
     right: -8px;
     top: 50%;
     position: absolute;
-    height: 3vh;
+    height: 1em;
     width: 2px;
     background-color: var(--link);
     transform: translateY(-45%);
