@@ -1,6 +1,6 @@
 //===== Type Effect
 const dynamicText = document.querySelector(".home-content span")
-const words = ["Web developer", "Software engineer"]
+const words = ["Web developer", "Student", "Gamer"]
 let wordsIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
