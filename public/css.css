@@ -2,7 +2,7 @@
     --text: #ffffff;
     --link: #dda0dd;
     --heightlight: aqua;
-    --bgcolor: #000000;
+    --bgcolor: #14141b;
 }
 html, body {
     background-color: var(--bgcolor);
@@ -23,7 +23,7 @@ html, body {
 .home {
     z-index: 1;
     display: grid;
-    align-items: center;
+    align-items: flex-start; /* เดิม center */
     grid-template-columns: 60% 40%;
     box-sizing: border-box;
     line-height: 20px;
@@ -31,8 +31,12 @@ html, body {
     padding-left: 10%;
     padding-right: 10%;
     min-height: 100vh;
+    height: 100dvh;
+    /* 100dvh = viewport height, รองรับ mobile/desktop, ป้องกันปัญหาแถบ address bar */
     overflow: hidden;
     justify-content: center;
+    padding-top: 0vh; /* ลด padding-top ให้เนื้อหาขยับขึ้น */
+    margin-top: -3vh !important; /* ลด margin-top ให้เนื้อหาขยับขึ้น */
 }
 .home-avatar {
     position: absolute;
@@ -41,7 +45,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin: 100px 75px 100px 100px;
+    margin: 40px 75px 40px 100px; /* ลด margin-top/bottom ให้รูปขยับขึ้น */
     z-index: 0;
 }
 .home-avatar-img{
@@ -160,8 +164,9 @@ h4 {
 }
 .skill .content  {
     border-radius: 20px;
+    background-color: #242234;
     padding: 20px 30px 15px 30px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    box-shadow: 0 0 20px rgba(104, 100, 100, 0.2);
 }
 
 
@@ -259,7 +264,7 @@ input, textarea {
     margin: 6px 0px;
     border-radius: 10px;
     font-family: 'Mitr', sans-serif;
-    background-color: #252525;
+    background-color: #242234;
     color: #ffffff;
 }
 form button {
@@ -275,7 +280,6 @@ form button {
 }
 
 
-
 /*========== COPYRIGHT ==========*/
 .copyright{
     text-align: center;
@@ -283,9 +287,178 @@ form button {
     margin-bottom: 100px;
 }
 
+/* ===== Cute Animated Background ===== */
+.cute-bg-animation {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+.cute-bg-animation .bubble,
+.cute-bg-animation .heart {
+    position: absolute;
+    bottom: -40px;
+    animation-name: floatUp, floatWiggle, floatSpin;
+    animation-timing-function: linear, ease-in-out, ease-in-out;
+    animation-iteration-count: infinite;
+    will-change: transform, opacity;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: box-shadow 0.2s;
+}
+.cute-bg-animation .bubble {
+    width: 20px;
+    height: 20px;
+    background: rgba(173,216,230,0.22); /* ปรับให้จางลง */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #aeefff33; /* ปรับให้จางลง */
+}
+.cute-bg-animation .bubble:active {
+    box-shadow: 0 0 16px #dda0dd;
+}
+.cute-bg-animation .heart {
+    width: 1em;
+    height: 1em;
+    color: #ffb6c11a; /* จางมาก */
+    background: none;
+}
+.cute-bg-animation .heart::before,
+.cute-bg-animation .heart::after {
+    content: '';
+    position: absolute;
+    left: 0.5em;
+    top: 0;
+    width: 0.5em;
+    height: 0.8em;
+    background: #ffb6c133; /* จางมาก */
+    border-radius: 0.5em 0.5em 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+.cute-bg-animation .heart::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.2) rotate(20deg);
+        opacity: 0;
+    }
+}
+@keyframes floatWiggle {
+    0% { margin-left: 0; }
+    10% { margin-left: -8px;}
+    20% { margin-left: 10px;}
+    30% { margin-left: -12px;}
+    40% { margin-left: 8px;}
+    50% { margin-left: -10px;}
+    60% { margin-left: 7px;}
+    70% { margin-left: -8px;}
+    80% { margin-left: 5px;}
+    90% { margin-left: -4px;}
+    100% { margin-left: 0;}
+}
+@keyframes floatSpin {
+    0% { transform: scale(1) rotate(0deg);}
+    20% { transform: scale(1.08) rotate(8deg);}
+    40% { transform: scale(0.95) rotate(-8deg);}
+    60% { transform: scale(1.1) rotate(10deg);}
+    80% { transform: scale(0.97) rotate(-10deg);}
+    100% { transform: scale(1) rotate(0deg);}
+}
 
+/* ===== Cute Section Animations ===== */
+@keyframes cute-pop-in {
+    0% { opacity: 0; transform: scale(0.85) translateY(30px);}
+    60% { opacity: 1; transform: scale(1.05) translateY(-8px);}
+    80% { transform: scale(0.98) translateY(2px);}
+    100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+@keyframes cute-fade-in {
+    0% { opacity: 0;}
+    100% { opacity: 1;}
+}
+@keyframes cute-bounce {
+    0% { transform: translateY(40px);}
+    60% { transform: translateY(-10px);}
+    80% { transform: translateY(4px);}
+    100% { transform: translateY(0);}
+}
+@keyframes cute-float {
+    0% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
+    100% { transform: translateY(0);}
+}
+.cute-animate-pop {
+    animation: cute-pop-in 0.7s cubic-bezier(.42,1.6,.58,1) both;
+}
+.cute-animate-fade {
+    animation: cute-fade-in 1s cubic-bezier(.42,1.6,.58,1) both;
+}
+.cute-animate-bounce {
+    animation: cute-bounce 0.8s cubic-bezier(.42,1.6,.58,1) both;
+}
+.cute-animate-float {
+    animation: cute-float 2.5s ease-in-out infinite;
+}
+.cute-animate-delay-1 { animation-delay: 0.2s; }
+.cute-animate-delay-2 { animation-delay: 0.4s; }
+.cute-animate-delay-3 { animation-delay: 0.6s; }
+.cute-animate-delay-4 { animation-delay: 0.8s; }
 
+/* ===== Popup Animation ===== */
+#music-popup.cute-animate-pop {
+    animation: cute-pop-in 0.7s cubic-bezier(.42,1.6,.58,1) both;
+}
+#music-popup.cute-animate-fade {
+    animation: cute-fade-in 0.7s cubic-bezier(.42,1.6,.58,1) both;
+}
 
+/* ===== Soft & Subtle Cute Animations (ละมุนขึ้น) ===== */
+@keyframes cute-soft-fade-in {
+    0% { opacity: 0; filter: blur(12px);}
+    60% { opacity: 1; filter: blur(2px);}
+    100% { opacity: 1; filter: blur(0);}
+}
+@keyframes cute-soft-up {
+    0% { opacity: 0; transform: translateY(40px) scale(0.97);}
+    60% { opacity: 1; transform: translateY(-8px) scale(1.01);}
+    100% { opacity: 1; transform: translateY(0) scale(1);}
+}
+@keyframes cute-soft-scale-in {
+    0% { opacity: 0; transform: scale(0.93);}
+    60% { opacity: 1; transform: scale(1.04);}
+    100% { opacity: 1; transform: scale(1);}
+}
+.cute-soft-fade-in {
+    animation: cute-soft-fade-in 1.3s cubic-bezier(.42,1.6,.58,1) both;
+    transition: opacity 1.1s cubic-bezier(.42,1.6,.58,1), filter 1.1s cubic-bezier(.42,1.6,.58,1);
+}
+.cute-soft-up {
+    animation: cute-soft-up 1.1s cubic-bezier(.42,1.6,.58,1) both;
+    transition: opacity 1.1s cubic-bezier(.42,1.6,.58,1), transform 1.1s cubic-bezier(.42,1.6,.58,1);
+}
+.cute-soft-scale-in {
+    animation: cute-soft-scale-in 1s cubic-bezier(.42,1.6,.58,1) both;
+    transition: opacity 1s cubic-bezier(.42,1.6,.58,1), transform 1s cubic-bezier(.42,1.6,.58,1);
+}
+/* ให้ใช้ร่วมกันได้เนียน */
+.cute-soft-fade-in.cute-soft-up {
+    animation: cute-soft-fade-in 1.3s cubic-bezier(.42,1.6,.58,1) both, cute-soft-up 1.1s cubic-bezier(.42,1.6,.58,1) both;
+}
+.cute-soft-delay-1 { animation-delay: 0.18s; }
+.cute-soft-delay-2 { animation-delay: 0.36s; }
+.cute-soft-delay-3 { animation-delay: 0.54s; }
+.cute-soft-delay-4 { animation-delay: 0.72s; }
 /*==================== MEDIA ====================*/
 
 
@@ -296,7 +469,14 @@ form button {
         display: flex;
         flex-direction: column-reverse;
         text-align: center;
-        margin-top: -50px;
+        margin-top: 0;
+        min-height: 100vh;
+        height: 100dvh;
+        justify-content: center;
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0; /* mobile ไม่ต้องขยับ */
     }
     .home-avatar-img {
         width: 150px;
@@ -314,6 +494,11 @@ form button {
     }
     p {
         font-size: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
     h1 {
         font-size:1.4em!important;
@@ -339,6 +524,9 @@ form button {
     }
 }
 @media screen and (768px < width < 1035px) {
+    .home {
+        margin-top: -5vh;
+    }
     .home-avatar-img {
         width: 250px;
         margin: -50px -50px -50px 0px;
@@ -366,35 +554,94 @@ form button {
         font-size:1.4em!important;
     }
 }
-@media screen and (1024px <= width) {
-    .home-content span::before {
-        height: 50px;
+
+/* ===== Music bar pop in/out animation ===== */
+#music-player {
+    position: fixed;
+    left: 50%;
+    right: auto;
+    top: 24px;
+    bottom: auto;
+    /* ต้องใช้ transform: translate(-50%, 0); เพื่อให้ตรงกลางจริง */
+    transform: translate(-50%, 0) !important;
+    z-index: 9999;
+    box-sizing: border-box;
+    max-width: 96vw;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #242234cc;
+    color: #fff;
+    padding: 8px 18px 8px 16px;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #0002;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.5s, box-shadow 0.3s, transform 0.3s;
+    animation: none !important;
+}
+
+/* ===== Popup Blur Background ===== */
+#music-popup {
+    /* ให้ popup เต็มจอและอยู่บนสุด */
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    /* ไม่มี background ตรงนี้ ให้ใช้ overlay ด้านในแทน */
+}
+#music-popup .popup-blur-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(30,30,40,0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 0;
+}
+
+/* ===== Popup Animation (scale + opacity, responsive) ===== */
+#music-popup > div[style] {
+    /* เฉพาะกล่อง popup ด้านใน */
+    animation: popup-scale-fade-in 0.7s cubic-bezier(.42,1.6,.58,1) both;
+    will-change: transform, opacity;
+    transition: transform 0.4s cubic-bezier(.42,1.6,.58,1), opacity 0.4s cubic-bezier(.42,1.6,.58,1);
+}
+@keyframes popup-scale-fade-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
     }
-    .home-avatar {
-        text-align: center;
-        position: static;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin: 100px 0px 100px 100px;
-        z-index: 1;
+    60% {
+        opacity: 1;
+        transform: scale(1.04);
     }
-    .dots {
-        scale: 1.1;
-        right: 10%;
-        top: 45%;
-        rotate: 60deg;
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
-    .dots2 {
-        right: 25%;
+}
+
+/* Responsive: ลด scale effect บนอุปกรณ์เล็ก */
+@media (max-width: 600px) {
+    #music-popup > div[style] {
+        animation: popup-scale-fade-in-mobile 0.7s cubic-bezier(.42,1.6,.58,1) both;
     }
-    p {
-        font-size: 15px;
-    }
-    h1 {
-        font-size:3em!important;
-    }
-    h4 {
-        font-size:1.4em!important;
+    @keyframes popup-scale-fade-in-mobile {
+        0% {
+            opacity: 0;
+            transform: scale(0.98);
+        }
+        60% {
+            opacity: 1;
+            transform: scale(1.01);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 }

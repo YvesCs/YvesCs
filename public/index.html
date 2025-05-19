@@ -16,93 +16,428 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
 
-    <title>Yves Cs</title>
+    <title>Melvin</title>
+    <style>
+        /* Loader overlay */
+        #page-loader {
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: var(--bgcolor, #11111b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.7s;
+        }
+
+        #page-loader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-heart {
+            width: 48px;
+            height: 48px;
+            position: relative;
+            animation: loader-bounce 1s infinite alternate;
+        }
+
+        .loader-heart:before,
+        .loader-heart:after {
+            content: "";
+            position: absolute;
+            left: 24px;
+            top: 0;
+            width: 24px;
+            height: 38px;
+            background: #dda0dd;
+            border-radius: 24px 24px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .loader-heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes loader-bounce {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Bunny mascot */
+        .bunny-mascot {
+            position: fixed;
+            bottom: 10px;
+            left: -80px;
+            z-index: 10;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+            animation: bunny-walk 18s linear infinite;
+        }
+
+        @media (max-width: 600px) {
+            .bunny-mascot {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        @keyframes bunny-walk {
+            0% {
+                left: -80px;
+            }
+
+            10% {
+                transform: scaleX(1);
+            }
+
+            45% {
+                left: calc(100vw - 60px);
+                transform: scaleX(1);
+            }
+
+            50% {
+                left: calc(100vw - 60px);
+                transform: scaleX(-1);
+            }
+
+            95% {
+                left: -80px;
+                transform: scaleX(-1);
+            }
+
+            100% {
+                left: -80px;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Bunny SVG style */
+        .bunny-mascot svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .home {
+            z-index: 1;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            grid-template-columns: 60% 40%;
+            box-sizing: border-box;
+            line-height: 20px;
+            width: 100%;
+            padding-left: 10%;
+            padding-right: 10%;
+            min-height: 100vh;
+            height: 100dvh;
+        }
+
+        @media screen and (max-width: 768px) {
+            .home {
+                display: flex;
+                flex-direction: column-reverse;
+                text-align: center;
+                margin-top: 0;
+                min-height: 100vh;
+                height: 100dvh;
+                justify-content: center;
+                align-items: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        /* Animation classes */
+        .cute-section,
+        .cute-animate-pop,
+        .cute-animate-fade,
+        .cute-animate-bounce,
+        .cute-soft-fade-in,
+        .cute-soft-up,
+        .cute-soft-scale-in,
+        .cute-soft-float,
+        .cute-soft-delay-1,
+        .cute-soft-delay-2,
+        .cute-soft-delay-3,
+        .cute-soft-delay-4,
+        .cute-animate-delay-1,
+        .cute-animate-delay-2,
+        .cute-animate-delay-3,
+        .cute-animate-delay-4 {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+            animation: none !important;
+            filter: none !important;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Loader overlay -->
+    <div id="page-loader">
+        <div class="loader-heart"></div>
+    </div>
 
-    <div class="home">
-        <div class="home-content">
-            <h4>HOME</h4>
-            <h1>Hi, I'm <div class="heightlight2">Yves Cs</div></h1>
-            <h1>a <span></span></h1>
+    <!-- ===== Music Autoplay Popup (blurred background, overlays everything) ===== -->
+    <div id="music-popup" style="display:none;">
+        <div class="popup-blur-bg"></div>
+        <div style="position:relative;z-index:1;background:#242234cc;padding:64px 48px 40px 48px;border-radius:18px;box-shadow:0 2px 24px #0005;text-align:center;max-width:420px;width:calc(100vw - 48px);margin:24px;">
+            <div style="font-size:1.2em;margin-bottom:12px;color:#fff;">เว็บไซต์นี้มีเพลงประกอบ<br>กรุณากดปุ่มด้านล่างเพื่อเริ่มเล่นเพลง</div>
+            <button id="music-popup-btn" style="font-size:1.1em;padding:8px 32px;border-radius:12px;background:var(--link,#dda0dd);color:#fff;border:none;cursor:pointer;">เล่นเพลง</button>
+        </div>
+    </div>
 
+    <!-- Main content (ซ่อนจนกว่าจะกดเล่นเพลง) -->
+    <div id="main-content" style="display:none;">
+        <!-- Cute animated background -->
+        <div class="cute-bg-animation"></div>
+
+        <div class="home" id="section-home">
+            <div class="home-content">
+                <h4>HOME</h4>
+                <h1>Hi, I'm <div class="heightlight2">Melvin</div></h1>
+                <h1>a <span></span></h1>
+                <br>
+                <p>สวัสดีครับทุกคน ขอยินดีต้อนรับเข้าสู่หน้าแนะนำตัวของผมอย่างเป็นทางการนะครับ ผมชื่อว่า <span class="heightlight">ออโต้</span> นะครับผม ผมเป็นคนที่หลงไหลในเรื่องของวิทยาศาสตร์และเทคโนโลยีเป็นอย่างมาก แต่อย่างไรก็ตาม ทุกคนก็สามารถคติดต่อผมได้ทุกช่องทางด้านล่างนี้ได้เลยนะครับผม!</p>
+                <br>
+                <div class="contact">
+                    <button><a href="mailto:chananponsenhom@gmail.com" aria-label="email"><title>email</title><svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M166.667 33.3333H33.3334C24.1251 33.3333 16.7501 40.7916 16.7501 49.9999L16.6667 150C16.6667 159.208 24.1251 166.667 33.3334 166.667H166.667C175.875 166.667 183.333 159.208 183.333 150V49.9999C183.333 40.7916 175.875 33.3333 166.667 33.3333ZM166.667 150H33.3334V66.6666L100 108.333L166.667 66.6666V150ZM100 91.6666L33.3334 49.9999H166.667L100 91.6666Z"></path></svg></a></button>
+                    <button><a href="https://facebook.com/YVchanapon" target="_self" aria-label="facebook.com/" rel="noreferrer"><title>facebook.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M35.5189 17H165.151C170.063 17 174.773 18.9511 178.246 22.4241C181.719 25.897 183.67 30.6074 183.67 35.5189V165.151C183.67 170.063 181.719 174.773 178.246 178.246C174.773 181.719 170.063 183.67 165.151 183.67H35.5189C30.6074 183.67 25.897 181.719 22.4241 178.246C18.9511 174.773 17 170.063 17 165.151V35.5189C17 30.6074 18.9511 25.897 22.4241 22.4241C25.897 18.9511 30.6074 17 35.5189 17V17ZM155.892 35.5189H132.743C124.148 35.5189 115.905 38.9333 109.827 45.011C103.749 51.0887 100.335 59.3318 100.335 67.9269V91.0756H81.8161V118.854H100.335V183.67H128.113V118.854H155.892V91.0756H128.113V72.5567C128.113 70.1009 129.089 67.7457 130.825 66.0093C132.562 64.2728 134.917 63.2972 137.373 63.2972H155.892V35.5189Z"></path></svg></a></button>
+                    <button><a href="https://instagram.com/yvxscs" target="_self" aria-label="instagram.com/" rel="noreferrer"><title>instagram.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M65 16.6667H135C161.667 16.6667 183.333 38.3334 183.333 65.0001V135C183.333 147.819 178.241 160.113 169.177 169.177C160.113 178.241 147.819 183.333 135 183.333H65C38.3333 183.333 16.6667 161.667 16.6667 135V65.0001C16.6667 52.1813 21.7589 39.8875 30.8232 30.8233C39.8874 21.759 52.1812 16.6667 65 16.6667ZM63.3333 33.3334C55.3768 33.3334 47.7462 36.4941 42.1201 42.1202C36.494 47.7463 33.3333 55.3769 33.3333 63.3334V136.667C33.3333 153.25 46.75 166.667 63.3333 166.667H136.667C144.623 166.667 152.254 163.506 157.88 157.88C163.506 152.254 166.667 144.623 166.667 136.667V63.3334C166.667 46.7501 153.25 33.3334 136.667 33.3334H63.3333ZM143.75 45.8334C146.513 45.8334 149.162 46.9309 151.116 48.8844C153.069 50.8379 154.167 53.4874 154.167 56.2501C154.167 59.0128 153.069 61.6623 151.116 63.6158C149.162 65.5693 146.513 66.6668 143.75 66.6668C140.987 66.6668 138.338 65.5693 136.384 63.6158C134.431 61.6623 133.333 59.0128 133.333 56.2501C133.333 53.4874 134.431 50.8379 136.384 48.8844C138.338 46.9309 140.987 45.8334 143.75 45.8334ZM100 58.3334C111.051 58.3334 121.649 62.7233 129.463 70.5373C137.277 78.3513 141.667 88.9494 141.667 100C141.667 111.051 137.277 121.649 129.463 129.463C121.649 137.277 111.051 141.667 100 141.667C88.9493 141.667 78.3512 137.277 70.5372 129.463C62.7232 121.649 58.3333 111.051 58.3333 100C58.3333 88.9494 62.7232 78.3513 70.5372 70.5373C78.3512 62.7233 88.9493 58.3334 100 58.3334ZM100 75.0001C93.3696 75.0001 87.0107 77.634 82.3223 82.3224C77.6339 87.0108 75 93.3697 75 100C75 106.631 77.6339 112.989 82.3223 117.678C87.0107 122.366 93.3696 125 100 125C106.63 125 112.989 122.366 117.678 117.678C122.366 112.989 125 106.631 125 100C125 93.3697 122.366 87.0108 117.678 82.3224C112.989 77.634 106.63 75.0001 100 75.0001Z"></path></svg></a></button>
+                    <button><a href="https://twitter.com/mmxlviny" target="_self" aria-label="twitter.com/" rel="noreferrer"><title>twitter.com/</title><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg></a></button>
+                    <button><a href="https://tiktok.com/@yves_cs" target="_self" aria-label="tiktok.com/@" rel="noreferrer"><title>tiktok.com/@</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M107.867 13.4255V131.484C107.867 144.526 97.2917 155.092 84.2583 155.092C71.2167 155.092 60.65 144.517 60.65 131.484C60.65 118.442 71.225 107.876 84.2583 107.876V76.3922C53.8333 76.3922 29.1667 101.059 29.1667 131.484C29.1667 161.909 53.8333 186.576 84.2583 186.576C114.683 186.576 139.35 161.909 139.35 131.484V76.3922L141.008 77.2255C150.267 81.8589 160.475 84.2672 170.825 84.2672V52.7755L169.883 52.5422C151.933 48.0589 139.342 31.9255 139.342 13.4255H107.867Z"></path></svg></a></button>
+                    <button><a href="https://youtube.com/@Yves_Cs" target="_self" aria-label="youtube.com/" rel="noreferrer"><title>youtube.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M83.3333 125L126.583 100L83.3333 75.0001V125ZM179.667 59.7501C180.75 63.6667 181.5 68.9167 182 75.5834C182.583 82.2501 182.833 88.0001 182.833 93.0001L183.333 100C183.333 118.25 182 131.667 179.667 140.25C177.583 147.75 172.75 152.583 165.25 154.667C161.333 155.75 154.167 156.5 143.167 157C132.333 157.583 122.417 157.833 113.25 157.833L100 158.333C65.0833 158.333 43.3333 157 34.75 154.667C27.25 152.583 22.4166 147.75 20.3333 140.25C19.25 136.333 18.5 131.083 18 124.417C17.4166 117.75 17.1666 112 17.1666 107L16.6666 100C16.6666 81.7501 18 68.3334 20.3333 59.7501C22.4166 52.2501 27.25 47.4167 34.75 45.3334C38.6666 44.2501 45.8333 43.5001 56.8333 43.0001C67.6666 42.4167 77.5833 42.1667 86.75 42.1667L100 41.6667C134.917 41.6667 156.667 43.0001 165.25 45.3334C172.75 47.4167 177.583 52.2501 179.667 59.7501Z"></path></svg></a></button>
+                </div>
+            </div>
+            <!-- เอา cute-soft-float ออกจาก div นี้ เพื่อให้รูปไม่ถูกซ่อน opacity -->
+            <div class="home-avatar">
+                <img class="home-avatar-img" alt="Melvin" src="image/cr-removebg-preview.png" style="opacity:1;filter:none;">
+            </div>
+        </div>
+
+        <div class="skill" id="section-skill">
+            <div class="txt">
+                <h4>SKILL</h4>
+                <h1><div class="heightlight2">ทักษะ</div>ทั้งหมดที่ผมมี</h1>
+            </div>
             <br>
-            <p>สวัสดีครับทุกคน ขอยินดีต้อนรับเข้าสู่หน้าแนะนำตัวของผมอย่างเป็นทางการนะครับ ผมชื่อว่า <span class="heightlight">ออโต้</span> นะครับผม ผมเป็นคนที่หลงไหลในเรื่องของวิทยาศาสตร์และเทคโนโลยีเป็นอย่างมาก แต่อย่างไรก็ตาม ทุกคนก็สามารถคติดต่อผมได้ทุกช่องทางด้านล่างนี้ได้เลยนะครับผม!</p>
+            <div class="flexbox">
+                <div class="item">
+                    <div class="content">
+                        <p class="heightlight">การเขียนโปรเกรม</p>
+                        <p>ผมเคยแข่งขันการสร้าง Web Page ประเภท Text Editor และการแข่ง Web application ทำให้มีประสบการณ์ในการเขียนภาษา HTML CSS php และ JavaScript</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <p class="heightlight">วิทยาศาสตร์</p>
+                        <p>ในอนาคตผมมีความฝันที่อยากจะเป็นแพทย์ให้ได้ ทั้งนั้นผมจึงได้เข้าร่วมกิจกรรมเกี่ยวกับสายนี้หลายๆกิจกรรม ทำไมมีทักษะเพิ่มขึ้นมาก</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <p class="heightlight">การเรียน</p>
+                        <p>ผมเรียนติดอันดับต้นๆมาตลอด ผมเป็นคนที่คอยสอนเพื่อนอยู่เสมอ ทำให้ผมต้องพัฒนาตัวเองอยู่เสมอ อาจจะเครียดบ้างแต่ผมก็พยายามนะ</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <p class="heightlight">การว่าความ</p>
+                        <p>ปัจจุบันผมเคยไปว่าความที่ศาลของจังหวัด ทำให้ผมได้ประสบการณ์จากตรงนั้นมา ทำให้ผมรู้เรื่องต่างๆที่เกี่ยวกับกฎหมายได้ดีกว่าคนอื่น</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center" id="section-contact">
+            <div class="txt txt3">
+                <h4>CONTACT</h4>
+                <h1><div class="heightlight2">ติดต่อ</div>ผม</h1>
+            </div>
             <br>
-
-            <div class="contact">
-                <button><a href="mailto:chananponsenhom@gmail.com" aria-label="email"><title>email</title><svg width="30" height="30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M166.667 33.3333H33.3334C24.1251 33.3333 16.7501 40.7916 16.7501 49.9999L16.6667 150C16.6667 159.208 24.1251 166.667 33.3334 166.667H166.667C175.875 166.667 183.333 159.208 183.333 150V49.9999C183.333 40.7916 175.875 33.3333 166.667 33.3333ZM166.667 150H33.3334V66.6666L100 108.333L166.667 66.6666V150ZM100 91.6666L33.3334 49.9999H166.667L100 91.6666Z"></path></svg></a></button>
-                <button><a href="https://facebook.com/YVchanapon" target="_self" aria-label="facebook.com/" rel="noreferrer"><title>facebook.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M35.5189 17H165.151C170.063 17 174.773 18.9511 178.246 22.4241C181.719 25.897 183.67 30.6074 183.67 35.5189V165.151C183.67 170.063 181.719 174.773 178.246 178.246C174.773 181.719 170.063 183.67 165.151 183.67H35.5189C30.6074 183.67 25.897 181.719 22.4241 178.246C18.9511 174.773 17 170.063 17 165.151V35.5189C17 30.6074 18.9511 25.897 22.4241 22.4241C25.897 18.9511 30.6074 17 35.5189 17V17ZM155.892 35.5189H132.743C124.148 35.5189 115.905 38.9333 109.827 45.011C103.749 51.0887 100.335 59.3318 100.335 67.9269V91.0756H81.8161V118.854H100.335V183.67H128.113V118.854H155.892V91.0756H128.113V72.5567C128.113 70.1009 129.089 67.7457 130.825 66.0093C132.562 64.2728 134.917 63.2972 137.373 63.2972H155.892V35.5189Z"></path></svg></a></button>
-                <button><a href="https://instagram.com/yves.cs_" target="_self" aria-label="instagram.com/" rel="noreferrer"><title>instagram.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M65 16.6667H135C161.667 16.6667 183.333 38.3334 183.333 65.0001V135C183.333 147.819 178.241 160.113 169.177 169.177C160.113 178.241 147.819 183.333 135 183.333H65C38.3333 183.333 16.6667 161.667 16.6667 135V65.0001C16.6667 52.1813 21.7589 39.8875 30.8232 30.8233C39.8874 21.759 52.1812 16.6667 65 16.6667ZM63.3333 33.3334C55.3768 33.3334 47.7462 36.4941 42.1201 42.1202C36.494 47.7463 33.3333 55.3769 33.3333 63.3334V136.667C33.3333 153.25 46.75 166.667 63.3333 166.667H136.667C144.623 166.667 152.254 163.506 157.88 157.88C163.506 152.254 166.667 144.623 166.667 136.667V63.3334C166.667 46.7501 153.25 33.3334 136.667 33.3334H63.3333ZM143.75 45.8334C146.513 45.8334 149.162 46.9309 151.116 48.8844C153.069 50.8379 154.167 53.4874 154.167 56.2501C154.167 59.0128 153.069 61.6623 151.116 63.6158C149.162 65.5693 146.513 66.6668 143.75 66.6668C140.987 66.6668 138.338 65.5693 136.384 63.6158C134.431 61.6623 133.333 59.0128 133.333 56.2501C133.333 53.4874 134.431 50.8379 136.384 48.8844C138.338 46.9309 140.987 45.8334 143.75 45.8334ZM100 58.3334C111.051 58.3334 121.649 62.7233 129.463 70.5373C137.277 78.3513 141.667 88.9494 141.667 100C141.667 111.051 137.277 121.649 129.463 129.463C121.649 137.277 111.051 141.667 100 141.667C88.9493 141.667 78.3512 137.277 70.5372 129.463C62.7232 121.649 58.3333 111.051 58.3333 100C58.3333 88.9494 62.7232 78.3513 70.5372 70.5373C78.3512 62.7233 88.9493 58.3334 100 58.3334ZM100 75.0001C93.3696 75.0001 87.0107 77.634 82.3223 82.3224C77.6339 87.0108 75 93.3697 75 100C75 106.631 77.6339 112.989 82.3223 117.678C87.0107 122.366 93.3696 125 100 125C106.63 125 112.989 122.366 117.678 117.678C122.366 112.989 125 106.631 125 100C125 93.3697 122.366 87.0108 117.678 82.3224C112.989 77.634 106.63 75.0001 100 75.0001Z"></path></svg></a></button>
-                <button><a href="https://twitter.com/yves_cs_" target="_self" aria-label="twitter.com/" rel="noreferrer"><title>twitter.com/</title><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg></a></button>
-                <button><a href="https://tiktok.com/@yves_cs" target="_self" aria-label="tiktok.com/@" rel="noreferrer"><title>tiktok.com/@</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M107.867 13.4255V131.484C107.867 144.526 97.2917 155.092 84.2583 155.092C71.2167 155.092 60.65 144.517 60.65 131.484C60.65 118.442 71.225 107.876 84.2583 107.876V76.3922C53.8333 76.3922 29.1667 101.059 29.1667 131.484C29.1667 161.909 53.8333 186.576 84.2583 186.576C114.683 186.576 139.35 161.909 139.35 131.484V76.3922L141.008 77.2255C150.267 81.8589 160.475 84.2672 170.825 84.2672V52.7755L169.883 52.5422C151.933 48.0589 139.342 31.9255 139.342 13.4255H107.867Z"></path></svg></a></button>
-                <button><a href="https://youtube.com/@Yves_Cs" target="_self" aria-label="youtube.com/" rel="noreferrer"><title>youtube.com/</title><svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="fill: rgb(255, 255, 255); width: 28px; height: 28px; padding: 8px; filter: drop-shadow(rgba(0, 0, 0, 0.25) 0px 0.5px 1px);"><path d="M83.3333 125L126.583 100L83.3333 75.0001V125ZM179.667 59.7501C180.75 63.6667 181.5 68.9167 182 75.5834C182.583 82.2501 182.833 88.0001 182.833 93.0001L183.333 100C183.333 118.25 182 131.667 179.667 140.25C177.583 147.75 172.75 152.583 165.25 154.667C161.333 155.75 154.167 156.5 143.167 157C132.333 157.583 122.417 157.833 113.25 157.833L100 158.333C65.0833 158.333 43.3333 157 34.75 154.667C27.25 152.583 22.4166 147.75 20.3333 140.25C19.25 136.333 18.5 131.083 18 124.417C17.4166 117.75 17.1666 112 17.1666 107L16.6666 100C16.6666 81.7501 18 68.3334 20.3333 59.7501C22.4166 52.2501 27.25 47.4167 34.75 45.3334C38.6666 44.2501 45.8333 43.5001 56.8333 43.0001C67.6666 42.4167 77.5833 42.1667 86.75 42.1667L100 41.6667C134.917 41.6667 156.667 43.0001 165.25 45.3334C172.75 47.4167 177.583 52.2501 179.667 59.7501Z"></path></svg></a></button>
-            </div>
-        </div>
-        <div class="home-avatar"><img class="home-avatar-img" alt="Yves Cs" src="image/cr-removebg-preview.png"></div>
-    </div>
-
-    <div class="skill">
-        <div class="txt">
-            <h4>SKILL</h4>
-            <h1><div class="heightlight2">ทักษะ</div>ทั้งหมดที่ผมมี</h1>
-        </div>
-        <br>
-
-        <div class="flexbox">
-            <div class="item">
-                <div class="content">
-                    <p class="heightlight">การเขียนโปรเกรม</p>
-                    <p>ผมเคยแข่งขันการสร้าง Web Page ประเภท Text Editor และการแข่ง Web application ทำให้มีประสบการณ์ในการเขียนภาษา HTML CSS php และ JavaScript</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="content">
-                    <p class="heightlight">วิทยาศาสตร์</p>
-                    <p>ในอนาคตผมมีความฝันที่อยากจะเป็นแพทย์ให้ได้ ทั้งนั้นผมจึงได้เข้าร่วมกิจกรรมเกี่ยวกับสายนี้หลายๆกิจกรรม ทำไมมีทักษะเพิ่มขึ้นมาก</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="content">
-                    <p class="heightlight">การเรียน</p>
-                    <p>ผมเรียนติดอันดับต้นๆมาตลอด ผมเป็นคนที่คอยสอนเพื่อนอยู่เสมอ ทำให้ผมต้องพัฒนาตัวเองอยู่เสมอ อาจจะเครียดบ้างแต่ผมก็พยายามนะ</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="content">
-                    <p class="heightlight">การว่าความ</p>
-                    <p>ปัจจุบันผมเคยไปว่าความที่ศาลของจังหวัด ทำให้ผมได้ประสบการณ์จากตรงนั้นมา ทำให้ผมรู้เรื่องต่างๆที่เกี่ยวกับกฎหมายได้ดีกว่าคนอื่น</p>
-                </div>
+            <div class="form">
+                <form action="https://formsubmit.co/chananponsenhom@gmail.com" method="POST">
+                    <input type="text" placeholder="Name" name="name" required>
+                    <input type="email" placeholder="Email" name="email" required>
+                    <input type="text" placeholder="Subject" name="subject" required>
+                    <textarea name="message" placeholder="Message" cols="30" rows="10" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </div>
 
-    </div>
-
-    <div class="center">
-        <div class="txt txt3">
-            <h4>CONTACT</h4>
-            <h1><div class="heightlight2">ติดต่อ</div>ผม</h1>
+        <div class="copyright">
+            <p>© copyright Melvin 2025</p>
         </div>
-        <br>
 
-        <div class="form">
-            <form action="https://formsubmit.co/chananponsenhom@gmail.com" method="POST">
-                <input type="text" placeholder="Name" name="name" required>
-                <input type="email" placeholder="Email" name="email" required>
-                <input type="text" placeholder="Subject" name="subject" required>
-                <textarea name="message" placeholder="Message" cols="30" rows="10" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
+        <div id="music-player" style="display:flex;align-items:center;gap:10px;position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#242234cc;color:#fff;padding:8px 18px 8px 16px;border-radius:18px;box-shadow:0 2px 12px #0002;z-index:999;opacity:1;pointer-events:auto;">
+            <span id="music-title" style="font-size:1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;display:inline-block;">กำลังโหลดเพลง...</span>
+            <button id="music-mute-btn" title="ปิดเสียง" style="background:none;border:none;outline:none;cursor:pointer;color:#fff;font-size:1.2em;padding:0 8px;">
+                <span id="music-mute-icon">&#128266;</span>
+            </button>
+            <button id="music-play-btn" style="display:none;background:none;border:none;outline:none;cursor:pointer;color:#fff;font-size:1.2em;padding:0 8px;">▶️</button>
         </div>
     </div>
+    <script>
+        // ===== Loader, Main Content, Popup Sequence =====
+        window.addEventListener('DOMContentLoaded', function() {
+            // 1. Show loader, hide popup and main content
+            document.getElementById('page-loader').style.display = '';
+            document.getElementById('music-popup').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
 
-    <div class="copyright">
-        <p>© copyright Yves Cs 2024</p>
-    </div>
+            setTimeout(function() {
+                // 2. Hide loader, show main-content
+                document.getElementById('page-loader').classList.add('hide');
+                setTimeout(function() {
+                    document.getElementById('page-loader').style.display = 'none';
+                    document.getElementById('main-content').style.display = '';
+                    // 3. Show popup OVER main-content
+                    document.getElementById('music-popup').style.display = 'flex';
+                }, 700);
+            }, 900);
+        });
 
+        // ===== Music Player Logic (show main page after play) =====
+        const playlist = [
+            { src: "songs/1.mp3", title: "NDGX - 365/365" },
+            { src: "songs/2.mp3", title: "NDGX - ชอบแมวเป่า" }
+        ];
+        let currentTrack = 0;
+        let started = false;
+        let playPending = false;
+        let userGesture = false;
+        const audio = document.createElement('audio');
+        audio.id = 'music-audio';
+        audio.preload = 'none';
+        audio.volume = 0.5;
+
+        function updateMuteUI() {
+            const muteIcon = document.getElementById('music-mute-icon');
+            const muteBtn = document.getElementById('music-mute-btn');
+            if (!muteIcon || !muteBtn) return;
+            muteIcon.textContent = audio.muted ? '🔇' : '🔊';
+            muteBtn.title = audio.muted ? "เปิดเสียง" : "ปิดเสียง";
+        }
+
+        function playTrack(idx) {
+            currentTrack = idx % playlist.length;
+            audio.src = playlist[currentTrack].src;
+            const musicTitle = document.getElementById('music-title');
+            if (musicTitle) musicTitle.textContent = playlist[currentTrack].title;
+            audio.load();
+            playPending = true;
+            audio.play().then(() => {
+                playPending = false;
+                if (document.getElementById('music-popup')) document.getElementById('music-popup').style.display = "none";
+                if (document.getElementById('main-content')) document.getElementById('main-content').style.display = "";
+            }).catch(() => {
+                playPending = false;
+                // ถ้าโดน block ให้ popup ยังอยู่
+                if (document.getElementById('music-popup')) document.getElementById('music-popup').style.display = "flex";
+            });
+        }
+
+        // ใส่ audio ลงใน main-content (แทนของเดิม)
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const mainContent = document.getElementById('main-content');
+                if (mainContent && !document.getElementById('music-audio')) {
+                    mainContent.appendChild(audio);
+                }
+            }, 1700);
+        });
+
+        // ปุ่ม popup
+        document.addEventListener('DOMContentLoaded', function() {
+            const popupBtn = document.getElementById('music-popup-btn');
+            if (popupBtn) {
+                popupBtn.onclick = function() {
+                    if (!started) {
+                        started = true;
+                        userGesture = true;
+                        playTrack(currentTrack);
+                    }
+                };
+            }
+        });
+
+        // music bar logic (หลัง main-content โผล่)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const musicPlayer = document.getElementById('music-player');
+                const muteBtn = document.getElementById('music-mute-btn');
+                const playBtn = document.getElementById('music-play-btn');
+                if (!musicPlayer) return;
+
+                audio.addEventListener('ended', function() {
+                    playTrack((currentTrack + 1) % playlist.length);
+                });
+
+                if (muteBtn) {
+                    muteBtn.onclick = function(e) {
+                        e.preventDefault();
+                        audio.muted = !audio.muted;
+                        updateMuteUI();
+                    };
+                }
+                audio.addEventListener('volumechange', updateMuteUI);
+
+                // fallback: แตะที่ music bar เพื่อเริ่ม (ถ้ายังไม่ start)
+                musicPlayer.addEventListener('pointerdown', function() {
+                    if (!started || audio.paused) {
+                        if (!started) {
+                            started = true;
+                            userGesture = true;
+                        }
+                        playTrack(currentTrack);
+                    }
+                });
+
+                // auto-hide music player on inactivity
+                let musicBarTimeout;
+                function showMusicBar() {
+                    musicPlayer.style.opacity = '1';
+                    musicPlayer.style.pointerEvents = 'auto';
+                    resetMusicBarTimeout();
+                }
+                function hideMusicBar() {
+                    musicPlayer.style.opacity = '0';
+                    musicPlayer.style.pointerEvents = 'none';
+                }
+                function resetMusicBarTimeout() {
+                    clearTimeout(musicBarTimeout);
+                    musicBarTimeout = setTimeout(hideMusicBar, 3000);
+                }
+                // ตอบโต้กับเว็บไซต์ = mousemove, mousedown, keydown, touchstart, pointerdown, scroll
+                ['mousemove','mousedown','keydown','touchstart','pointerdown','scroll'].forEach(evt =>
+                    window.addEventListener(evt, showMusicBar, {passive:true})
+                );
+                showMusicBar();
+                updateMuteUI();
+
+                // iOS/Safari: resume audio after unlock/return
+                document.addEventListener('visibilitychange', function() {
+                    if (!document.hidden && started && audio.paused && !playPending) {
+                        playTrack(currentTrack);
+                    }
+                });
+            }, 1700);
+        });
+    </script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
-
 </body>
 
 </html>
