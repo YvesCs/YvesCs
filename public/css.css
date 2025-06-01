@@ -477,10 +477,22 @@ form button {
         padding-left: 0;
         padding-right: 0;
         padding-top: 0; /* mobile ไม่ต้องขยับ */
+        /* เพิ่ม padding ให้ขอบซ้ายขวา */
+        box-sizing: border-box;
+    }
+    .home-content {
+        padding-left: 32px;
+        padding-right: 32px;
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: -5%;
+    }
+    .contact button {
+        margin: 0px 5px 20px 0px;
     }
     .home-avatar-img {
         width: 150px;
-        margin-bottom: -75px;
+        margin-bottom: 0px;
         margin-left: -20px;
     }
     .contact button {
